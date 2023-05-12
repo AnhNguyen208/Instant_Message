@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import org.kordamp.bootstrapfx.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <BootstrapFX fx:factory="bootstrapFXStylesheet" />
+   </stylesheets>
+   <children>
+      <VBox prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <AnchorPane prefHeight="139.0" prefWidth="600.0" styleClass="panel-heading">
+               <children>
+                  <Label layoutX="242.0" layoutY="62.0" styleClass="h3" text="Đăng nhập">
+                     <font>
+                        <Font size="24.0" />
+                     </font></Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="188.0" prefWidth="600.0" styleClass="panel-body">
+               <children>
+                  <Label layoutX="145.0" layoutY="55.0" text="Email">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="129.0" layoutY="113.0" text="Password">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="email" layoutX="240.0" layoutY="51.0" prefHeight="31.0" prefWidth="207.0" />
+                  <TextField fx:id="password" layoutX="240.0" layoutY="111.0" prefHeight="31.0" prefWidth="207.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="117.0" prefWidth="600.0" styleClass="panel-footer">
+               <children>
+                  <Button fx:id="btnLogin" layoutX="244.0" layoutY="23.0" mnemonicParsing="false" text="Đăng nhập">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-primary" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

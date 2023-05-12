@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="210.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="https://lh3.googleusercontent.com/pw/AJFCJaVGjBjIVlMhUSfsQZKLYOMu_nawcRiqMJSsp9GUdxqrQidgr9aSPTGHJ4424dBAVshN9Ay1blUCbUzEOOZRXJJ2JAiu9FKHRayvFKNJHU5J-sZDWkQ=w2400" />
+         </image></ImageView>
+   </children>
+</AnchorPane>
