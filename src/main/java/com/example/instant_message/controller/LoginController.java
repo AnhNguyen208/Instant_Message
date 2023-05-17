@@ -2,6 +2,7 @@ package com.example.instant_message.controller;
 
 import com.example.instant_message.db.ConnectDB;
 import com.example.instant_message.model.User;
+import com.example.instant_message.service.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -24,42 +25,20 @@ public class LoginController extends BaseController implements Initializable {
     @FXML
     private Button btnLogin;
 
+    private UserService userService;
+
     public LoginController(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
         BaseController.loginController = this;
-    }
-
-    private boolean checkUser() throws SQLException {
-        String sql = "SELECT * FROM users WHERE email = '" + email.getText() + "'";
-        // System.out.println(sql);
-        Statement stm = ConnectDB.getConnection().createStatement();
-        ResultSet res = stm.executeQuery(sql);
-        if(res.next()) {
-            // System.out.println("Email: " + res.getString("email") + " Password: " + res.getString("password"));
-            if(!email.getText().equals(res.getString("email"))) {
-                return false;
-            } else {
-                if (!password.getText().equals(res.getString("password")) ) {
-                    return false;
-                } else {
-                    BaseController.user = new User();
-                    BaseController.user.setEmail(email.getText());
-                    BaseController.user.setName(res.getString("name"));
-                    BaseController.user.setPhoneNumber(res.getString("phone_number"));
-                    BaseController.user.setDob(res.getDate("dob"));
-
-                    return true;
-                }
-            }
-        }
-        return false;
+        userService = new UserService();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnLogin.setOnMouseClicked( e-> {
             try {
-                if(checkUser()) {
+                if(userService.checkUser(email.getText(), password.getText()) != null) {
+                    BaseController.user = userService.checkUser(email.getText(), password.getText());
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Thành công");
                     alert.setHeaderText("Thông báo:");

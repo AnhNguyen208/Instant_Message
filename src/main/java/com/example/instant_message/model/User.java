@@ -3,6 +3,7 @@ package com.example.instant_message.model;
 import java.util.Date;
 
 public class User {
+    private Long id;
     private String email;
     private String password;
     private String name;
@@ -54,5 +55,13 @@ public class User {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

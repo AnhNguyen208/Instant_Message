@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -29,10 +26,8 @@
             </AnchorPane>
             <AnchorPane prefHeight="284.0" prefWidth="600.0">
                <children>
-                  <Label fx:id="phoneNumber" layoutX="471.0" layoutY="153.0" text="Label" />
-                  <Label fx:id="name" layoutX="187.0" layoutY="153.0" text="Label" />
-                  <Label layoutX="352.0" layoutY="153.0" text="Số điện thoại" />
-                  <Label layoutX="64.0" layoutY="153.0" text="Họ và tên" />
+                  <Label layoutX="308.0" layoutY="153.0" text="Số điện thoại" />
+                  <Label layoutX="22.0" layoutY="153.0" text="Họ và tên" />
                   <ImageView fitHeight="111.0" fitWidth="100.0" layoutX="255.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="https://lh3.googleusercontent.com/75wmSt_ybBYi8OSc2JhdNH4iuYFstvkZ3JJxfE3u4b9AODEwmU20qMJkQzvI6WgicFV1xRBrF0sL-9XBaRop9cU2gqtiiTN_mGn_bg1GvP9a2TK8uVutAmy0_ZVlYFlmaeVLl-agyQ=w2400" />
@@ -43,15 +38,17 @@
                         <Font size="24.0" />
                      </font>
                   </Label>
-                  <Label layoutX="63.0" layoutY="194.0" text="Ngày sinh" />
-                  <Label fx:id="dob" layoutX="187.0" layoutY="194.0" text="Label" />
-                  <Label layoutX="78.0" layoutY="231.0" text="Email" />
-                  <Label fx:id="email" layoutX="187.0" layoutY="231.0" text="Label" />
+                  <Label layoutX="21.0" layoutY="194.0" text="Ngày sinh" />
+                  <Label layoutX="36.0" layoutY="242.0" text="Email" />
+                  <TextField fx:id="name" layoutX="97.0" layoutY="148.0" />
+                  <TextField fx:id="email" layoutX="97.0" layoutY="237.0" />
+                  <TextField fx:id="phoneNumber" layoutX="399.0" layoutY="148.0" />
+                  <DatePicker fx:id="dob" layoutX="97.0" layoutY="190.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="76.0" prefWidth="600.0">
                <children>
-                  <Button layoutX="225.0" layoutY="18.0" mnemonicParsing="false" text="Chỉnh sửa thông tin" />
+                  <Button fx:id="btnEdit" layoutX="225.0" layoutY="18.0" mnemonicParsing="false" text="Chỉnh sửa thông tin" />
                </children>
             </AnchorPane>
          </children>
