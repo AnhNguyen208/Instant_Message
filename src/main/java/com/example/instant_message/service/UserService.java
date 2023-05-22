@@ -2,10 +2,18 @@ package com.example.instant_message.service;
 
 import com.example.instant_message.db.ConnectDB;
 import com.example.instant_message.model.User;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserService {
     public User checkUser(String email, String password) throws SQLException {
@@ -45,5 +53,31 @@ public class UserService {
         System.out.println(sql);
         Statement stm = ConnectDB.getConnection().createStatement();
         stm.executeUpdate(sql);
+    }
+
+    public List<User> friendList(Long id) throws SQLException {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM friends where id_user1 = " + id + "";
+        Statement stm = ConnectDB.getConnection().createStatement();
+        ResultSet res = stm.executeQuery(sql);
+        while(res.next()) {
+            userList.add(findUserById(res.getLong("id_user2")));
+        }
+        return  userList.size()>0?userList:null;
+    }
+
+    public User findUserById(Long id) throws SQLException {
+        User user = new User();
+        String sql = "SELECT * FROM users where id = " + id + "";
+        Statement stm = ConnectDB.getConnection().createStatement();
+        ResultSet res = stm.executeQuery(sql);
+        while(res.next()) {
+            user.setId(res.getLong("id"));
+            user.setName(res.getString("name"));
+            user.setEmail(res.getString("email"));
+            user.setPhoneNumber(res.getString("phone_number"));
+            user.setDob(res.getDate("dob"));
+        }
+        return user;
     }
 }

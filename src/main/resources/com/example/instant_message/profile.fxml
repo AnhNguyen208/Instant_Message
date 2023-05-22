@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -44,11 +45,12 @@
                   <TextField fx:id="email" layoutX="97.0" layoutY="237.0" />
                   <TextField fx:id="phoneNumber" layoutX="399.0" layoutY="148.0" />
                   <DatePicker fx:id="dob" layoutX="97.0" layoutY="190.0" />
+                  <TextField fx:id="textFieldDob" layoutX="97.0" layoutY="190.0" />
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="76.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="btnEdit" layoutX="225.0" layoutY="18.0" mnemonicParsing="false" text="Chỉnh sửa thông tin" />
+                  <Button fx:id="btnEdit" layoutX="241.0" layoutY="18.0" mnemonicParsing="false" text="Chỉnh sửa thông tin" />
                </children>
             </AnchorPane>
          </children>

@@ -1,7 +1,5 @@
 package com.example.instant_message.controller;
 
-import com.example.instant_message.db.ConnectDB;
-import com.example.instant_message.model.User;
 import com.example.instant_message.service.UserService;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,10 +10,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginController extends BaseController implements Initializable {
     @FXML
@@ -33,31 +31,37 @@ public class LoginController extends BaseController implements Initializable {
         userService = new UserService();
     }
 
+    public boolean validateEmailAddress() {
+        Pattern regexPattern = Pattern.compile("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$");
+        Matcher regMatcher   = regexPattern.matcher(email.getText());
+        if(!regMatcher.matches()) {
+            displayAlert(Alert.AlertType.ERROR, "Lỗi", "Email không hợp lệ");
+            return false;
+        }
+
+        return true;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnLogin.setOnMouseClicked( e-> {
-            try {
-                if(userService.checkUser(email.getText(), password.getText()) != null) {
-                    BaseController.user = userService.checkUser(email.getText(), password.getText());
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Thành công");
-                    alert.setHeaderText("Thông báo:");
-                    alert.setContentText("Đăng nhập thành công");
-                    alert.showAndWait();
+            if(validateEmailAddress()) {
+                try {
+                    if(userService.checkUser(email.getText(), password.getText()) != null) {
+                        BaseController.user = userService.checkUser(email.getText(), password.getText());
+                        displayAlert(Alert.AlertType.INFORMATION, "Thành công", "Đăng nhập thành công");
 
-                    HomeController homeController = new HomeController(this.stage, "/com/example/instant_message/home-page.fxml");
-                    homeController.show();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Lỗi");
-                    alert.setHeaderText("Thông báo:");
-                    alert.setContentText("Đăng nhập không thành công");
-                    alert.showAndWait();
+                        HomeController homeController = new HomeController(this.stage, "/com/example/instant_message/home-page.fxml");
+                        homeController.show();
+                    } else {
+                        displayAlert(Alert.AlertType.ERROR, "Lỗi", "Đăng nhập không thành công");
+                    }
+
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
                 }
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
             }
         });
     }

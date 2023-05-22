@@ -26,6 +26,8 @@ public class ProfileController extends BaseController implements Initializable {
     @FXML
     private DatePicker dob;
     @FXML
+    private TextField textFieldDob;
+    @FXML
     private TextField phoneNumber;
     @FXML
     private TextField email;
@@ -42,31 +44,41 @@ public class ProfileController extends BaseController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         menuButton.setText("Xin chào, " + BaseController.user.getName());
         menuItem1.setOnAction(e -> {
-            BaseController.homeController.show();
+            if(btnEdit.getText().equals("Xác nhận")) {
+                displayAlert(Alert.AlertType.WARNING, "Cảnh báo", "Hãy xác nhận thay đổi thông tin cá nhân!!!");
+            } else {
+                BaseController.homeController.show();
+            }
         });
         menuItem2.setOnAction(e -> {
-            BaseController.loginController.show();
+            if(btnEdit.getText().equals("Xác nhận")) {
+                displayAlert(Alert.AlertType.WARNING, "Cảnh báo", "Hãy xác nhận thay đổi thông tin cá nhân!!!");
+            } else {
+                BaseController.loginController.show();
+            }
         });
         name.setText(BaseController.user.getName());
         name.setEditable(false);
-        //System.out.println(BaseController.user.getName());
 
         email.setText(BaseController.user.getEmail());
         email.setEditable(false);
-        //System.out.println(BaseController.user.getEmail());
 
         phoneNumber.setText(BaseController.user.getPhoneNumber());
         phoneNumber.setEditable(false);
 
+        textFieldDob.setText(BaseController.user.getDob().toString());
+        textFieldDob.setEditable(false);
+
+        dob.setVisible(false);
         dob.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(BaseController.user.getDob())));
-        dob.getEditor().setEditable(false);
 
         btnEdit.setOnMouseClicked(e-> {
             if(btnEdit.getText().equals("Chỉnh sửa thông tin")) {
                 name.setEditable(true);
                 email.setEditable(true);
                 phoneNumber.setEditable(true);
-                dob.setEditable(true);
+                dob.setVisible(true);
+                textFieldDob.setVisible(false);
                 btnEdit.setText("Xác nhận");
             } else {
                 try {
@@ -74,7 +86,8 @@ public class ProfileController extends BaseController implements Initializable {
                     name.setEditable(false);
                     email.setEditable(false);
                     phoneNumber.setEditable(false);
-                    dob.setEditable(false);
+                    dob.setVisible(false);
+                    textFieldDob.setVisible(true);
                     btnEdit.setText("Chỉnh sửa thông tin");
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
