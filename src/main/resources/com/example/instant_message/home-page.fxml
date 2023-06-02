@@ -5,47 +5,90 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="400.0" prefWidth="600.0">
+      <VBox prefHeight="800.0" prefWidth="1280.0">
          <children>
-            <AnchorPane prefHeight="68.0" prefWidth="600.0">
+            <AnchorPane prefHeight="160.0" prefWidth="1280.0">
                <children>
-                  <MenuButton fx:id="menuButton" layoutX="413.0" layoutY="19.0" mnemonicParsing="false" text="Xin chào, ...">
-                    <items>
-                      <MenuItem fx:id="menuItem1" mnemonicParsing="false" text="Thông tin tài khoản" />
-                      <MenuItem fx:id="menuItem2" mnemonicParsing="false" text="Đăng xuất" />
-                    </items>
-                  </MenuButton>
-                  <Label layoutX="14.0" layoutY="17.0" text="Instant message">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="17.0" prefHeight="53.0" prefWidth="201.0" text="Instant message">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="59.0" prefWidth="600.0">
-               <children>
-                  <TextField layoutX="170.0" layoutY="14.0" />
-                  <Button layoutX="340.0" layoutY="14.0" mnemonicParsing="false" text="Tìm kiếm" />
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="58.0" prefWidth="600.0">
-               <children>
-                  <Label layoutX="173.0" layoutY="14.0" text="Danh sách bạn bè và nhóm chat">
+                  <MenuButton fx:id="menuButton" layoutX="1076.0" layoutY="19.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="150.0" text="Xin chào, ...">
+                     <items>
+                        <MenuItem fx:id="menuItem1" mnemonicParsing="false" text="Thông tin tài khoản" />
+                        <MenuItem fx:id="menuItem2" mnemonicParsing="false" text="Bạn bè" />
+                        <MenuItem fx:id="menuItem3" mnemonicParsing="false" text="Đăng xuất" />
+                     </items>
                      <font>
                         <Font size="18.0" />
                      </font>
+                  </MenuButton>
+                  <Label fx:id="title" layoutX="558.0" layoutY="80.0" text="Trang chủ">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
                   </Label>
                </children>
             </AnchorPane>
-            <HBox prefHeight="213.0" prefWidth="600.0">
+            <AnchorPane prefHeight="634.0" prefWidth="1280.0">
                <children>
-                  <Region prefHeight="200.0" prefWidth="200.0" />
-                  <VBox fx:id="vBox" prefHeight="100.0" prefWidth="478.0" />
-                  <Region prefHeight="200.0" prefWidth="200.0" />
+                  <SplitPane dividerPositions="0.29609375" layoutX="7.0" layoutY="-1.0" prefHeight="628.0" prefWidth="1267.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="632.0" prefWidth="602.0">
+                           <children>
+                              <SplitPane dividerPositions="0.11217948717948718" orientation="VERTICAL" prefHeight="626.0" prefWidth="375.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <TextField fx:id="textFieldSearch" layoutX="35.0" layoutY="16.0" prefHeight="31.0" prefWidth="226.0" />
+                                          <Button fx:id="btnSearch" layoutX="278.0" layoutY="18.0" mnemonicParsing="false" text="Tìm kiếm" />
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <Label layoutX="60.0" layoutY="14.0" text="Danh sách bạn bè và nhóm chat">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <VBox fx:id="vBox" layoutY="53.0" prefHeight="446.0" prefWidth="375.0" />
+                                          <Button fx:id="btnCreateGroup" layoutX="112.0" layoutY="513.0" mnemonicParsing="false" text="Tạo nhóm chat mới" />
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="889.0">
+                           <children>
+                              <SplitPane dividerPositions="0.11378205128205128" orientation="VERTICAL" prefHeight="626.0" prefWidth="886.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="256.0" prefWidth="884.0">
+                                       <children>
+                                          <Label fx:id="labelName" layoutX="14.0" layoutY="16.0" prefHeight="35.0" prefWidth="861.0" text="labelName">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                       <children>
+                                          <TextField fx:id="textFieldMessage" layoutX="47.0" layoutY="497.0" prefHeight="31.0" prefWidth="680.0" />
+                                          <Button fx:id="btnSend" layoutX="764.0" layoutY="497.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="103.0" text="Gửi" />
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
                </children>
-            </HBox>
+            </AnchorPane>
          </children>
       </VBox>
    </children>
