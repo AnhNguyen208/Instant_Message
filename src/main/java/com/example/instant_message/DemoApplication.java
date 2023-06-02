@@ -1,6 +1,7 @@
 package com.example.instant_message;
 
 import com.example.instant_message.controller.LoginController;
+import com.example.instant_message.ultils.Config;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,7 @@ public class DemoApplication extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("splash.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(Config.SPLASH_SCREEN_PATH));
             AnchorPane root = (AnchorPane) loader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -40,7 +41,7 @@ public class DemoApplication extends Application {
             // After fade out, load actual content
             fadeOut.setOnFinished((e) -> {
                 try {
-                    LoginController loginController = new LoginController(stage, "/com/example/instant_message/login.fxml");
+                    LoginController loginController = new LoginController(stage, Config.LOGIN_SCREEN_PATH);
                     loginController.show();
                 } catch (Exception e1) {
                     e1.printStackTrace();
