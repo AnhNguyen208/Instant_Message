@@ -6,51 +6,79 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox prefHeight="400.0" prefWidth="600.0">
+      <VBox prefHeight="800.0" prefWidth="1280.0">
          <children>
-            <AnchorPane prefHeight="67.0" prefWidth="600.0">
+            <AnchorPane prefHeight="160.0" prefWidth="1280.0">
                <children>
-                  <MenuButton fx:id="menuButton" layoutX="413.0" layoutY="19.0" mnemonicParsing="false" text="Xin chào, ...">
-                     <items>
-                        <MenuItem fx:id="menuItem1" mnemonicParsing="false" text="Trang chủ" />
-                        <MenuItem fx:id="menuItem2" mnemonicParsing="false" text="Đăng xuất" />
-                     </items>
-                  </MenuButton>
-                  <Label layoutX="14.0" layoutY="17.0" text="Instant message">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="17.0" prefHeight="53.0" prefWidth="201.0" text="Instant message">
                      <font>
-                        <Font size="24.0" />
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <MenuButton fx:id="menuButton" layoutX="1076.0" layoutY="19.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="150.0" text="Xin chào, ...">
+                     <items>
+                        <MenuItem fx:id="menuItem1" mnemonicParsing="false" text="Thông tin tài khoản" />
+                        <MenuItem fx:id="menuItem2" mnemonicParsing="false" text="Bạn bè" />
+                        <MenuItem fx:id="menuItem3" mnemonicParsing="false" text="Đăng xuất" />
+                     </items>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </MenuButton>
+                  <Label fx:id="title" layoutX="558.0" layoutY="80.0" text="Trang chủ">
+                     <font>
+                        <Font size="36.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="284.0" prefWidth="600.0">
+            <AnchorPane prefHeight="500.0" prefWidth="1280.0">
                <children>
-                  <Label layoutX="308.0" layoutY="153.0" text="Số điện thoại" />
-                  <Label layoutX="22.0" layoutY="153.0" text="Họ và tên" />
-                  <ImageView fitHeight="111.0" fitWidth="100.0" layoutX="255.0" pickOnBounds="true" preserveRatio="true">
+                  <Label layoutX="775.0" layoutY="283.0" text="Số điện thoại">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label layoutX="42.0" layoutY="283.0" text="Họ và tên">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <ImageView fitHeight="175.0" fitWidth="187.0" layoutX="547.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="https://lh3.googleusercontent.com/75wmSt_ybBYi8OSc2JhdNH4iuYFstvkZ3JJxfE3u4b9AODEwmU20qMJkQzvI6WgicFV1xRBrF0sL-9XBaRop9cU2gqtiiTN_mGn_bg1GvP9a2TK8uVutAmy0_ZVlYFlmaeVLl-agyQ=w2400" />
                      </image>
                   </ImageView>
-                  <Label layoutX="204.0" layoutY="111.0" text="Thông tin cá nhân">
+                  <Label layoutX="37.0" layoutY="364.0" text="Ngày sinh">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <Label layoutX="37.0" layoutY="433.0" text="Email">
+                     <font>
+                        <Font size="18.0" />
+                     </font></Label>
+                  <TextField fx:id="name" layoutX="191.0" layoutY="269.0" prefHeight="50.0" prefWidth="300.0">
                      <font>
                         <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="21.0" layoutY="194.0" text="Ngày sinh" />
-                  <Label layoutX="36.0" layoutY="242.0" text="Email" />
-                  <TextField fx:id="name" layoutX="97.0" layoutY="148.0" />
-                  <TextField fx:id="email" layoutX="97.0" layoutY="237.0" />
-                  <TextField fx:id="phoneNumber" layoutX="399.0" layoutY="148.0" />
-                  <DatePicker fx:id="dob" layoutX="97.0" layoutY="190.0" />
-                  <TextField fx:id="textFieldDob" layoutX="97.0" layoutY="190.0" />
+                     </font></TextField>
+                  <TextField fx:id="email" layoutX="191.0" layoutY="429.0" prefHeight="50.0" prefWidth="300.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font></TextField>
+                  <TextField fx:id="phoneNumber" layoutX="918.0" layoutY="269.0" prefHeight="50.0" prefWidth="300.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font></TextField>
+                  <DatePicker fx:id="dob" layoutX="191.0" layoutY="352.0" prefHeight="50.0" prefWidth="300.0" />
+                  <TextField fx:id="textFieldDob" layoutX="191.0" layoutY="352.0" prefHeight="50.0" prefWidth="300.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font></TextField>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="76.0" prefWidth="600.0">
+            <AnchorPane prefHeight="140.0" prefWidth="1280.0">
                <children>
-                  <Button fx:id="btnEdit" layoutX="241.0" layoutY="18.0" mnemonicParsing="false" text="Chỉnh sửa thông tin" />
+                  <Button fx:id="btnEdit" layoutX="522.0" layoutY="46.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="237.0" text="Chỉnh sửa thông tin" />
                </children>
             </AnchorPane>
          </children>
