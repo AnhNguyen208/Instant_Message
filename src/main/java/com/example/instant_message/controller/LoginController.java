@@ -1,6 +1,8 @@
 package com.example.instant_message.controller;
 
+import com.example.instant_message.model.User;
 import com.example.instant_message.service.UserService;
+import com.example.instant_message.ultils.Config;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -23,12 +25,8 @@ public class LoginController extends BaseController implements Initializable {
     @FXML
     private Button btnLogin;
 
-    private UserService userService;
-
     public LoginController(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
-        BaseController.loginController = this;
-        userService = new UserService();
     }
 
     public boolean validateEmailAddress() {
@@ -38,28 +36,30 @@ public class LoginController extends BaseController implements Initializable {
             displayAlert(Alert.AlertType.ERROR, "Lỗi", "Email không hợp lệ");
             return false;
         }
-
         return true;
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userService = new UserService();
         btnLogin.setOnMouseClicked( e-> {
             if(validateEmailAddress()) {
                 try {
-                    if(userService.checkUser(email.getText(), password.getText()) != null) {
-                        BaseController.user = userService.checkUser(email.getText(), password.getText());
-                        displayAlert(Alert.AlertType.INFORMATION, "Thành công", "Đăng nhập thành công");
+                    User user = userService.checkUser(email.getText(), password.getText());
+                    if(user != null) {
+                        try {
+                            displayAlert(Alert.AlertType.INFORMATION, "Thành công", "Đăng nhập thành công");
+                            BaseController.user = user;
 
-                        HomeController homeController = new HomeController(this.stage, "/com/example/instant_message/home-page.fxml");
-                        homeController.show();
+                            HomeController homeController = new HomeController(this.stage, Config.HOME_SCREEN_PATH);
+                            homeController.show();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
                     } else {
-                        displayAlert(Alert.AlertType.ERROR, "Lỗi", "Đăng nhập không thành công");
+                        displayAlert(Alert.AlertType.ERROR, "Lỗi", "Email hoặc mật khẩu không chính xác");
                     }
-
                 } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
             }
