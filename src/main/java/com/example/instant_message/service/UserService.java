@@ -2,12 +2,6 @@ package com.example.instant_message.service;
 
 import com.example.instant_message.db.ConnectDB;
 import com.example.instant_message.model.User;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -79,5 +73,30 @@ public class UserService {
             user.setDob(res.getDate("dob"));
         }
         return user;
+    }
+
+    public List<User> friendSuggestionList(Long id) throws SQLException {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM users WHERE id NOT IN (SELECT id FROM users WHERE id = " + id + ")" +
+                "AND id NOT IN (SELECT id_user2 FROM friend_requests WHERE id_user1 = " + id + ")" +
+                "AND id NOT IN (SELECT id_user1 FROM friend_requests WHERE id_user2 = " + id + ")" +
+                "AND id NOT IN (SELECT id_user2 FROM friends WHERE id_user1 = "+ id +")";
+        Statement stm = ConnectDB.getConnection().createStatement();
+        ResultSet res = stm.executeQuery(sql);
+        while(res.next()) {
+            userList.add(findUserById(res.getLong("id")));
+        }
+        return  userList;
+    }
+
+    public List<User> friendRequestList(Long id) throws SQLException {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM friend_requests WHERE id_user2 = '" + id + "';";
+        Statement stm = ConnectDB.getConnection().createStatement();
+        ResultSet res = stm.executeQuery(sql);
+        while(res.next()) {
+            userList.add(findUserById(res.getLong("id_user1")));
+        }
+        return  userList;
     }
 }
