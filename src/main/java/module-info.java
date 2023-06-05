@@ -10,6 +10,6 @@ module com.example.instant_message {
 
     opens com.example.instant_message to javafx.fxml;
     exports com.example.instant_message;
-    exports com.example.instant_message.controller;
-    opens com.example.instant_message.controller to javafx.fxml;
+    exports com.example.instant_message.views;
+    opens com.example.instant_message.views to javafx.fxml;
 }

@@ -1,7 +1,8 @@
-package com.example.instant_message.controller;
+package com.example.instant_message.views;
 
-import com.example.instant_message.model.User;
-import com.example.instant_message.service.UserService;
+import com.example.instant_message.controller.BaseController;
+import com.example.instant_message.entity.User;
+import com.example.instant_message.controller.UserController;
 import com.example.instant_message.ultils.Config;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +18,7 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LoginController extends BaseController implements Initializable {
+public class LoginScreenHandler extends BaseScreenHandler implements Initializable {
     @FXML
     private TextField email;
     @FXML
@@ -25,7 +26,7 @@ public class LoginController extends BaseController implements Initializable {
     @FXML
     private Button btnLogin;
 
-    public LoginController(Stage stage, String screenPath) throws IOException {
+    public LoginScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
     }
 
@@ -41,17 +42,17 @@ public class LoginController extends BaseController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userService = new UserService();
+        baseController = new UserController();
         btnLogin.setOnMouseClicked( e-> {
             if(validateEmailAddress()) {
                 try {
-                    User user = userService.checkUser(email.getText(), password.getText());
+                    User user = ((UserController) baseController).checkUser(email.getText(), password.getText());
                     if(user != null) {
                         try {
                             displayAlert(Alert.AlertType.INFORMATION, "Thành công", "Đăng nhập thành công");
-                            BaseController.user = user;
+                            baseController.setUser(user);
 
-                            HomeController homeController = new HomeController(this.stage, Config.HOME_SCREEN_PATH);
+                            HomeScreenHandler homeController = new HomeScreenHandler(this.stage, Config.HOME_SCREEN_PATH);
                             homeController.show();
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);

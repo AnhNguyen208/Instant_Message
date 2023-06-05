@@ -1,4 +1,4 @@
-package com.example.instant_message.model;
+package com.example.instant_message.entity;
 
 import java.util.Date;
 

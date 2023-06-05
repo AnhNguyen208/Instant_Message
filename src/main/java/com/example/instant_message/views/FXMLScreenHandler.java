@@ -1,15 +1,15 @@
-package com.example.instant_message.controller;
+package com.example.instant_message.views;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class FXMLController {
+public class FXMLScreenHandler {
     protected FXMLLoader loader;
     protected AnchorPane content;
 
-    public FXMLController(String screenPath) throws IOException {
+    public FXMLScreenHandler(String screenPath) throws IOException {
         this.loader = new FXMLLoader(getClass().getResource(screenPath));
         // Set this class as the controller
         this.loader.setController(this);

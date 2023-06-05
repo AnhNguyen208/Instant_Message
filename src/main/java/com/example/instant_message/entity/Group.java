@@ -1,12 +1,15 @@
-package com.example.instant_message.model;
+package com.example.instant_message.entity;
 
 import java.util.List;
 
 public class Group {
+    private Long idGroup;
     private String groupName;
     private List<User> memberList;
 
-    public Group(String groupName, List<User> memberList) {
+    public Group() {}
+    public Group(Long id,String groupName, List<User> memberList) {
+        this.idGroup = id;
         this.groupName = groupName;
         this.memberList = memberList;
     }
@@ -25,5 +28,13 @@ public class Group {
 
     public void setMemberList(List<User> memberList) {
         this.memberList = memberList;
+    }
+
+    public Long getIdGroup() {
+        return idGroup;
+    }
+
+    public void setIdGroup(Long idGroup) {
+        this.idGroup = idGroup;
     }
 }

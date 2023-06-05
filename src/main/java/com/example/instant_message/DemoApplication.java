@@ -1,6 +1,6 @@
 package com.example.instant_message;
 
-import com.example.instant_message.controller.LoginController;
+import com.example.instant_message.views.LoginScreenHandler;
 import com.example.instant_message.ultils.Config;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -41,7 +41,7 @@ public class DemoApplication extends Application {
             // After fade out, load actual content
             fadeOut.setOnFinished((e) -> {
                 try {
-                    LoginController loginController = new LoginController(stage, Config.LOGIN_SCREEN_PATH);
+                    LoginScreenHandler loginController = new LoginScreenHandler(stage, Config.LOGIN_SCREEN_PATH);
                     loginController.show();
                 } catch (Exception e1) {
                     e1.printStackTrace();

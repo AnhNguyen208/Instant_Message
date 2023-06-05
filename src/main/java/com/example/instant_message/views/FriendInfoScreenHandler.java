@@ -1,20 +1,26 @@
-package com.example.instant_message.controller;
+package com.example.instant_message.views;
 
-import com.example.instant_message.model.User;
-import com.example.instant_message.service.FriendService;
+import com.example.instant_message.controller.BaseController;
+import com.example.instant_message.entity.User;
+import com.example.instant_message.controller.FriendController;
 import com.example.instant_message.ultils.Config;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class FriendInfoController extends FXMLController {
+public class FriendInfoScreenHandler extends FXMLScreenHandler implements Initializable {
     @FXML
-    private ImageView imageView;
+    private ImageView avatar;
     @FXML
     private Label labelName;
     @FXML
@@ -25,28 +31,24 @@ public class FriendInfoController extends FXMLController {
     private Button btnRequestFriend;
     @FXML
     private Button btnUnfriend;
-    private User user1;
-    private User user2;
     private Stage stage;
-    private FriendService friendService;
+    private BaseController baseController;
 
-    public FriendInfoController(String screenPath, User user, Stage stage) throws IOException {
+    public FriendInfoScreenHandler(String screenPath, Stage stage) throws IOException {
         super(screenPath);
-        this.user1 = user;
         this.stage = stage;
-        friendService = new FriendService();
+        baseController = new FriendController();
     }
 
-    public void setFriendInfo(User user) {
-        this.user2 = user;
-        labelName.setText(user.getName());
+    public void setFriendInfo(User user1, User user2) {
+        labelName.setText(user2.getName());
         btnAccept.setVisible(false);
         btnDenied.setVisible(false);
         btnRequestFriend.setVisible(false);
 
         btnUnfriend.setOnMouseClicked(e -> {
             try {
-                friendService.unfriend(user1.getId(), user2.getId());
+                ((FriendController) baseController).unfriend(user1.getId(), user2.getId());
                 reloadPage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -56,16 +58,15 @@ public class FriendInfoController extends FXMLController {
         });
     }
 
-    public void setFriendSuggestionInfo(User user) {
-        this.user2 = user;
-        labelName.setText(user.getName());
+    public void setFriendSuggestionInfo(User user1, User user2) {
+        labelName.setText(user2.getName());
         btnAccept.setVisible(false);
         btnDenied.setVisible(false);
         btnUnfriend.setVisible(false);
 
         btnRequestFriend.setOnMouseClicked(e -> {
             try {
-                friendService.sendFriendRequest(user1.getId(), user2.getId());
+                ((FriendController) baseController).sendFriendRequest(user1.getId(), user2.getId());
                 reloadPage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -75,15 +76,14 @@ public class FriendInfoController extends FXMLController {
         });
     }
 
-    public void setFriendRequestInfo(User user) {
-        this.user2 = user;
-        labelName.setText(user.getName());
+    public void setFriendRequestInfo(User user1, User user2) {
+        labelName.setText(user2.getName());
         btnUnfriend.setVisible(false);
         btnRequestFriend.setVisible(false);
 
         btnAccept.setOnMouseClicked(e-> {
             try {
-                friendService.acceptFriendRequest(user1.getId(), user2.getId());
+                ((FriendController) baseController).acceptFriendRequest(user1.getId(), user2.getId());
                 reloadPage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -93,7 +93,7 @@ public class FriendInfoController extends FXMLController {
         });
         btnDenied.setOnMouseClicked(e -> {
             try {
-                friendService.deniedFriendRequest(user1.getId(), user2.getId());
+                ((FriendController) baseController).deniedFriendRequest(user1.getId(), user2.getId());
                 reloadPage();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
@@ -104,7 +104,14 @@ public class FriendInfoController extends FXMLController {
     }
 
     private void reloadPage() throws IOException {
-        FriendController friendController = new FriendController(stage, Config.FRIEND_SCREEN_PATH);
+        FriendScreenHandler friendController = new FriendScreenHandler(stage, Config.FRIEND_SCREEN_PATH);
         friendController.show();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        File file = new File("images/user.png");
+        Image image = new Image(file.toURI().toString());
+        avatar.setImage(image);
     }
 }

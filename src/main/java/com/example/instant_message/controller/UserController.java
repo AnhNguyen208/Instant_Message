@@ -1,7 +1,7 @@
-package com.example.instant_message.service;
+package com.example.instant_message.controller;
 
 import com.example.instant_message.db.ConnectDB;
-import com.example.instant_message.model.User;
+import com.example.instant_message.entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserService {
+public class UserController extends BaseController{
     public User checkUser(String email, String password) throws SQLException {
         String sql = "SELECT * FROM users WHERE email = '" + email + "'";
         // System.out.println(sql);
@@ -49,7 +49,7 @@ public class UserService {
         stm.executeUpdate(sql);
     }
 
-    public List<User> friendList(Long id) throws SQLException {
+    public List<User> getFriendList(Long id) throws SQLException {
         List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM friends where id_user1 = " + id + "";
         Statement stm = ConnectDB.getConnection().createStatement();
@@ -75,7 +75,7 @@ public class UserService {
         return user;
     }
 
-    public List<User> friendSuggestionList(Long id) throws SQLException {
+    public List<User> getFriendSuggestionList(Long id) throws SQLException {
         List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM users WHERE id NOT IN (SELECT id FROM users WHERE id = " + id + ")" +
                 "AND id NOT IN (SELECT id_user2 FROM friend_requests WHERE id_user1 = " + id + ")" +
@@ -89,7 +89,7 @@ public class UserService {
         return  userList;
     }
 
-    public List<User> friendRequestList(Long id) throws SQLException {
+    public List<User> getFriendRequestList(Long id) throws SQLException {
         List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM friend_requests WHERE id_user2 = '" + id + "';";
         Statement stm = ConnectDB.getConnection().createStatement();

@@ -1,11 +1,16 @@
-package com.example.instant_message.controller;
+package com.example.instant_message.views;
 
+import com.example.instant_message.controller.BaseController;
+import com.example.instant_message.controller.UserController;
 import com.example.instant_message.ultils.Config;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -15,7 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class ProfileController extends BaseController implements Initializable {
+public class ProfileScreenHandler extends BaseScreenHandler implements Initializable {
     @FXML
     private Label title;
     @FXML
@@ -26,6 +31,8 @@ public class ProfileController extends BaseController implements Initializable {
     private MenuItem menuItem2;
     @FXML
     private MenuItem menuItem3;
+    @FXML
+    private ImageView avatar;
     @FXML
     private TextField name;
     @FXML
@@ -39,7 +46,7 @@ public class ProfileController extends BaseController implements Initializable {
     @FXML
     private Button btnEdit;
 
-    public ProfileController(Stage stage, String screenPath) throws IOException {
+    public ProfileScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
     }
 
@@ -52,15 +59,16 @@ public class ProfileController extends BaseController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        baseController = new UserController();
         title.setText("Thông tin cá nhân");
-        menuButton.setText("Xin chào, " + BaseController.user.getName());
+        menuButton.setText("Xin chào, " + baseController.getUser().getName());
         menuItem1.setText("Trang chủ");
         menuItem1.setOnAction(e -> {
             if(btnEdit.getText().equals("Xác nhận")) {
                 displayAlert(Alert.AlertType.WARNING, "Cảnh báo", "Hãy xác nhận thay đổi thông tin cá nhân!!!");
             } else {
                 try {
-                    HomeController homeController = new HomeController(this.stage, Config.HOME_SCREEN_PATH);
+                    HomeScreenHandler homeController = new HomeScreenHandler(this.stage, Config.HOME_SCREEN_PATH);
                     homeController.show();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -73,7 +81,7 @@ public class ProfileController extends BaseController implements Initializable {
                 displayAlert(Alert.AlertType.WARNING, "Cảnh báo", "Hãy xác nhận thay đổi thông tin cá nhân!!!");
             } else {
                 try {
-                    FriendController friendController = new FriendController(this.stage, Config.FRIEND_SCREEN_PATH);
+                    FriendScreenHandler friendController = new FriendScreenHandler(this.stage, Config.FRIEND_SCREEN_PATH);
                     friendController.show();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -85,7 +93,7 @@ public class ProfileController extends BaseController implements Initializable {
                 displayAlert(Alert.AlertType.WARNING, "Cảnh báo", "Hãy xác nhận thay đổi thông tin cá nhân!!!");
             } else {
                 try {
-                    LoginController loginController = new LoginController(this.stage, Config.LOGIN_SCREEN_PATH);
+                    LoginScreenHandler loginController = new LoginScreenHandler(this.stage, Config.LOGIN_SCREEN_PATH);
                     loginController.show();
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
@@ -93,11 +101,15 @@ public class ProfileController extends BaseController implements Initializable {
             }
         });
 
-        name.setText(BaseController.user.getName());
-        email.setText(BaseController.user.getEmail());
-        phoneNumber.setText(BaseController.user.getPhoneNumber());
-        dob.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(BaseController.user.getDob())));
-        textFieldDob.setText(new SimpleDateFormat("MM/dd/yyyy").format(BaseController.user.getDob()).toString());
+        File file = new File("images/user.png");
+        Image image = new Image(file.toURI().toString());
+        avatar.setImage(image);
+
+        name.setText(baseController.getUser().getName());
+        email.setText(baseController.getUser().getEmail());
+        phoneNumber.setText(baseController.getUser().getPhoneNumber());
+        dob.setValue(LocalDate.parse(new SimpleDateFormat("yyyy-MM-dd").format(baseController.getUser().getDob())));
+        textFieldDob.setText(new SimpleDateFormat("MM/dd/yyyy").format(baseController.getUser().getDob()).toString());
 
         setEditableAndVisible(false);
         textFieldDob.setEditable(false);
@@ -109,13 +121,13 @@ public class ProfileController extends BaseController implements Initializable {
                 btnEdit.setText("Xác nhận");
             } else {
                 try {
-                    userService.updateUser(BaseController.user.getId(), email.getText(),
+                    ((UserController) baseController).updateUser(baseController.getUser().getId(), email.getText(),
                             name.getText(), phoneNumber.getText(), dob.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-                    setUser(BaseController.user.getId(), email.getText(), name.getText(), phoneNumber.getText(),
+                    baseController.setUser(baseController.getUser().getId(), email.getText(), name.getText(), phoneNumber.getText(),
                             dob.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                     setEditableAndVisible(false);
 
-                    textFieldDob.setText(new SimpleDateFormat("MM/dd/yyyy").format(BaseController.user.getDob()).toString());
+                    textFieldDob.setText(new SimpleDateFormat("MM/dd/yyyy").format(baseController.getUser().getDob()).toString());
                     textFieldDob.setVisible(true);
                     btnEdit.setText("Chỉnh sửa thông tin");
                 } catch (ParseException ex) {

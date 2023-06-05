@@ -1,7 +1,9 @@
-package com.example.instant_message.controller;
+package com.example.instant_message.views;
 
-import com.example.instant_message.model.User;
-import com.example.instant_message.service.GroupService;
+import com.example.instant_message.controller.UserController;
+import com.example.instant_message.entity.User;
+import com.example.instant_message.controller.GroupController;
+import com.example.instant_message.ultils.Config;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -14,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CreateGroupController extends BaseController implements Initializable {
+public class CreateGroupScreenHandler extends BaseScreenHandler implements Initializable {
     @FXML
     private TextField groupName;
     @FXML
@@ -23,19 +25,18 @@ public class CreateGroupController extends BaseController implements Initializab
     private ListView<String> listView;
     @FXML
     private Button btnCreate;
-    private GroupService groupService;
-    public CreateGroupController(Stage stage, String screenPath) throws IOException {
+    public CreateGroupScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Long> idMemberList = new ArrayList<>();
-        groupService = new GroupService();
-        idMemberList.add(user.getId());
+        idMemberList.add(baseController.getUser().getId());
         try {
             List<CheckMenuItem> itemList = new ArrayList<>();
-            List<User> friendList = userService.friendList(user.getId());
+            baseController = new UserController();
+            List<User> friendList = ((UserController)baseController).getFriendList(baseController.getUser().getId());
             for(User user: friendList) {
                 CheckMenuItem checkMenuItem = new CheckMenuItem(user.getName());
                 checkMenuItem.setId(user.getId().toString());
@@ -63,9 +64,13 @@ public class CreateGroupController extends BaseController implements Initializab
                     displayAlert(Alert.AlertType.WARNING, "Cảnh báo", "Hãy điền tên nhóm");
                 } else {
                     try {
-                        groupService.createGroup(groupName.getText(), idMemberList);
-                        this.stage.close();
+                        baseController = new GroupController();
+                        ((GroupController) baseController).createGroup(groupName.getText(), idMemberList);
+                        HomeScreenHandler homeScreenHandler = new HomeScreenHandler(this.stage, Config.HOME_SCREEN_PATH);
+                        homeScreenHandler.show();
                     } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                 }

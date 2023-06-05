@@ -27,7 +27,7 @@
                         <Font size="18.0" />
                      </font>
                   </MenuButton>
-                  <Label fx:id="title" layoutX="558.0" layoutY="80.0" text="Trang chủ">
+                  <Label fx:id="title" alignment="CENTER" contentDisplay="CENTER" layoutX="382.0" layoutY="80.0" prefHeight="53.0" prefWidth="517.0" text="Trang chủ">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -44,11 +44,7 @@
                      <font>
                         <Font size="18.0" />
                      </font></Label>
-                  <ImageView fitHeight="175.0" fitWidth="187.0" layoutX="547.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="https://lh3.googleusercontent.com/75wmSt_ybBYi8OSc2JhdNH4iuYFstvkZ3JJxfE3u4b9AODEwmU20qMJkQzvI6WgicFV1xRBrF0sL-9XBaRop9cU2gqtiiTN_mGn_bg1GvP9a2TK8uVutAmy0_ZVlYFlmaeVLl-agyQ=w2400" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="avatar" fitHeight="175.0" fitWidth="187.0" layoutX="547.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
                   <Label layoutX="37.0" layoutY="364.0" text="Ngày sinh">
                      <font>
                         <Font size="18.0" />
