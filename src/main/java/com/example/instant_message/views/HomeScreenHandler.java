@@ -44,50 +44,42 @@ public class HomeScreenHandler extends BaseScreenHandler implements Initializabl
     @FXML
     private Label labelName;
     @FXML
+    private ImageView avatar;
+    @FXML
     private Button btnCreateGroup;
+
 
     public HomeScreenHandler(Stage stage, String screenPath) throws IOException {
         super(stage, screenPath);
     }
 
+    private HBox setInfo(String imageFile, String name) {
+        HBox hBox = new HBox();
+        File file = new File(imageFile);
+        Image image = new Image(file.toURI().toString());
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setFitHeight(50);
+        imageView.setFitWidth(50);
+        HBox.setMargin(imageView, new Insets(0, 10, 10, 50));
+        Label label = new Label(name);
+        label.setFont(new Font("Arial", 24));
+        label.setOnMouseClicked(e -> {
+            labelName.setText(name);
+            avatar.setImage(image);
+        });
+        hBox.getChildren().add(imageView);
+        hBox.getChildren().add(label);
+        return hBox;
+    }
+
     private void displayFriendListAndGroupList(List<User> userList, List<Group> groupList) {
         vBox.getChildren().clear();
         for (User user1 : userList) {
-            HBox hBox = new HBox();
-            File file = new File("images/user.png");
-            Image image = new Image(file.toURI().toString());
-            ImageView imageView = new ImageView();
-            imageView.setImage(image);
-            imageView.setFitHeight(30);
-            imageView.setFitWidth(50);
-            HBox.setMargin(imageView, new Insets(0, 10, 10, 50));
-            Label name = new Label(user1.getName());
-            name.setFont(new Font("Arial", 24));
-            name.setOnMouseClicked(e -> {
-                labelName.setText(name.getText());
-            });
-            hBox.getChildren().add(imageView);
-            hBox.getChildren().add(name);
-            vBox.getChildren().add(hBox);
+            vBox.getChildren().add(setInfo("images/user.png", user1.getName()));
         }
-
         for (Group group : groupList) {
-            HBox hBox = new HBox();
-            File file = new File("images/people.png");
-            Image image = new Image(file.toURI().toString());
-            ImageView imageView = new ImageView();
-            imageView.setImage(image);
-            imageView.setFitHeight(30);
-            imageView.setFitWidth(50);
-            HBox.setMargin(imageView, new Insets(0, 10, 10, 50));
-            Label name = new Label(group.getGroupName());
-            name.setFont(new Font("Arial", 24));
-            name.setOnMouseClicked(e -> {
-                labelName.setText(name.getText());
-            });
-            hBox.getChildren().add(imageView);
-            hBox.getChildren().add(name);
-            vBox.getChildren().add(hBox);
+            vBox.getChildren().add(setInfo("images/people.png", group.getGroupName()));
         }
     }
 
